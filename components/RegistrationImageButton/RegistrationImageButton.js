@@ -2,9 +2,11 @@ import React from "react";
 import { Svg, Path, Circle } from "react-native-svg";
 import { TouchableOpacity } from "react-native";
 
+import {styles} from "./RegistrationImageButtonStyles"
+
 const RegistrationImageButton = ({ onPress }) => {
     return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity style={styles.addImageButton} onPress={onPress}>
             <Svg
                 width="25"
                 height="25"
