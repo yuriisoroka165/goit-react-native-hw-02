@@ -1,4 +1,4 @@
-import { ImageBackground, StyleSheet, View } from "react-native";
+import { ImageBackground, Image, StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
 
 import RegistrationScreen from "./Screens/RegistrationScreen";
@@ -18,23 +18,25 @@ const App = () => {
 
     return (
         <View style={styles.container}>
-            <ImageBackground
-                source={BackgroundImage}
+            <Image
+                source={require("./assets/images/app_background.jpg")}
                 resizeMode="cover"
                 style={styles.image}
-            >
-                <RegistrationScreen />
-            </ImageBackground>
+            />
+            <RegistrationScreen />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        position: "relative",
         flex: 1,
         backgroundColor: "#fff",
     },
     image: {
+        position: "absolute",
+        width: "100%",
         flex: 1,
         justifyContent: "center",
     },
