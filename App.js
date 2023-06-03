@@ -1,8 +1,9 @@
-import { ImageBackground, Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
 
 import RegistrationScreen from "./Screens/RegistrationScreen";
-import BackgroundImage from "./assets/images/app_background.jpg";
+import LoginScreen from "./Screens/LoginScreen";
+import PostsScreen from "./Screens/PostsScreen/PostsScreen";
 
 const App = () => {
     const [fontsLoaded] = useFonts({
@@ -23,7 +24,9 @@ const App = () => {
                 resizeMode="cover"
                 style={styles.image}
             />
-            <RegistrationScreen />
+            {/* <RegistrationScreen /> */}
+            {/* <LoginScreen /> */}
+            <PostsScreen />
         </View>
     );
 };

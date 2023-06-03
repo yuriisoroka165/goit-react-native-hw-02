@@ -2,9 +2,9 @@ import React from "react";
 import { Svg, Path, Circle } from "react-native-svg";
 import { TouchableOpacity } from "react-native";
 
-import {styles} from "./RegistrationImageButtonStyles"
+import { styles } from "./RegistrationImageAddButtonStyles";
 
-const RegistrationImageButton = ({ onPress }) => {
+const RegistrationImageAddButton = ({ onPress }) => {
     return (
         <TouchableOpacity style={styles.addImageButton} onPress={onPress}>
             <Svg
@@ -32,4 +32,4 @@ const RegistrationImageButton = ({ onPress }) => {
     );
 };
 
-export default RegistrationImageButton;
+export default RegistrationImageAddButton;

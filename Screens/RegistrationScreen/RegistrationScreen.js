@@ -1,28 +1,60 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Image, Text, TouchableOpacity } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 import { styles } from "./RegistrationScreenStyles";
-import RegistrationImageButton from "../../components/RegistrationImageButton";
+import RegistrationImageAddButton from "../../components/RegistrationImageAddButton";
+import RegistrationImageRemoveButton from "../../components/RegistrationImageRemoveButton";
 import InputComponent from "../../components/InputComponent";
-import { useState } from "react";
 
 const RegistrationScreen = () => {
+    const [login, setLogin] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [userAvatar, setUserAavatar] = useState(null);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleImgButtonPress = () => {
-        console.log("touch");
+    const handleRemoveImage = () => {
+        setUserAavatar(null);
     };
 
+    const handleSubmitButtonPress = () => {
+        console.log(login, email, password);
+    };
+
+    const uploadAvatar = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 4],
+            quality: 1,
+        });
+        console.log(result.assets[0].uri);
+
+        if (!result.canceled) setUserAavatar(result.assets[0].uri);
+    };
     return (
         <View style={styles.registrationContainer}>
             <View style={styles.userImageContainer}>
-                <RegistrationImageButton
-                    onPress={handleImgButtonPress}
-                ></RegistrationImageButton>
+                {userAvatar && (
+                    <Image
+                        source={{ uri: userAvatar }}
+                        style={{ width: 120, height: 120, borderRadius: 16 }}
+                    />
+                )}
+                {!userAvatar ? (
+                    <RegistrationImageAddButton
+                        onPress={uploadAvatar}
+                    ></RegistrationImageAddButton>
+                ) : (
+                    <RegistrationImageRemoveButton
+                        onPress={handleRemoveImage}
+                    ></RegistrationImageRemoveButton>
+                )}
             </View>
 
             <Text style={styles.registrationFormHeader}>Реєстрація</Text>
@@ -32,11 +64,15 @@ const RegistrationScreen = () => {
                     placeholder={"Логін"}
                     type={"text"}
                     name={"login"}
+                    value={login}
+                    onChangeText={setLogin}
                 />
                 <InputComponent
                     placeholder={"Адреса електронної пошти"}
                     type={"email"}
                     name={"email"}
+                    value={email}
+                    onChangeText={setEmail}
                 />
 
                 <View style={{ position: "relative" }}>
@@ -64,6 +100,7 @@ const RegistrationScreen = () => {
             </View>
 
             <TouchableOpacity
+                onPress={handleSubmitButtonPress}
                 style={styles.registrationFormSubmitButton}
                 title="Зареєструватися"
             >
